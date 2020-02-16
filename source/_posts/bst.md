@@ -22,7 +22,7 @@ tags: 算法
 - delete方法：删除一个节点
 - deleteMax方法：删除最小节点
 
-```
+```java
 public class BinarySearchTree<E extends Comparable<E>> {
     private Node<E> root;
 
@@ -246,7 +246,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         System.out.println(node.item);
     }
 
-    /**
+        /**
      * 先序遍历
      */
     public void firstOrderTraversal() {
@@ -255,27 +255,48 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
 
     /**
-     * 先序遍历
+     * 先序遍历(递归实现)
      *
      * @param node
      */
     public void firstOrderTraversal(Node<E> node) {
-        if (node != null) {
-            printNode(node);
-            if (node.leftChild != null) {
-                firstOrderTraversal(node.leftChild);
-            }
-            if (node.rightChild != null) {
-                firstOrderTraversal(node.rightChild);
+        if (node == null) {
+            return;
+        }
+        printNode(node);
+        firstOrderTraversal(node.leftChild);
+        firstOrderTraversal(node.rightChild);
+    }
+
+    /**
+     * 先序遍历(非递归实现)
+     *
+     * @param node
+     */
+    public void firstOrderTraversal2(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+        Stack<Node<E>> stack = new Stack<>();
+        stack.push(node);
+
+        while (!stack.isEmpty()) {
+            Node<E> pop = stack.pop();
+            if (pop != null) {
+                printNode(pop);
+                stack.push(pop.rightChild);
+                stack.push(pop.leftChild);
             }
         }
+
     }
+
 
     /**
      * 中序遍历
      */
     public void inOrderTraversal() {
-        inOrderTraversal(root);
+        inOrderTraversal2(root);
     }
 
 
@@ -285,39 +306,118 @@ public class BinarySearchTree<E extends Comparable<E>> {
      * @param node
      */
     public void inOrderTraversal(Node<E> node) {
-        if (node != null) {
-            if (node.leftChild != null) {
-                inOrderTraversal(node.leftChild);
+        if (node == null) {
+            return;
+        }
+        inOrderTraversal(node.leftChild);
+        printNode(node);
+        inOrderTraversal(node.rightChild);
+
+    }
+
+    /**
+     * 中序遍历(非递归实现)
+     *
+     * @param node
+     */
+    public void inOrderTraversal2(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+        Stack<Node<E>> stack = new Stack<>();
+
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {
+                stack.push(node);
+                node = node.leftChild;
+            } else {
+                Node<E> pop = stack.pop();
+                printNode(pop);
+                node = pop.rightChild;
             }
-            printNode(node);
-            if (node.rightChild != null) {
-                inOrderTraversal(node.rightChild);
+        }
+
+    }
+
+    /**
+     * 后序遍历
+     */
+    public void postOrderTraversal() {
+        postOrderTraversal2(root);
+    }
+
+
+    /**
+     * 后序遍历
+     *
+     * @param node
+     */
+    public void postOrderTraversal(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+        postOrderTraversal(node.leftChild);
+        postOrderTraversal(node.rightChild);
+        printNode(node);
+    }
+
+    /**
+     * 主要思想：首先遍历root根节点的所有左结点，并依次入栈。对出栈的元素，如果没有右子树或者虽然有右子树
+     * 但右子树已完成遍历，即可完成出栈；否则，再次入栈，并把右子树入栈，遍历右子树的所有左子树。
+     *
+     * @param node
+     */
+    public void postOrderTraversal2(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+        Stack<Node<E>> stack = new Stack<>();
+        Node<E> prePop = null;
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {
+                stack.push(node);
+                node = node.leftChild;
+            } else {
+                Node<E> pop = stack.pop();
+                if (pop.rightChild == null || pop.rightChild == prePop) {
+                    printNode(pop);
+                    prePop = pop;
+                    node = null;
+                } else {
+                    stack.push(pop);
+                    stack.push(pop.rightChild);
+                    node = pop.rightChild.leftChild;
+                }
             }
         }
     }
 
     /**
-     * 后续遍历
+     * 层序遍历
      */
-    public void postOrderTraversal() {
-        postOrderTraversal(root);
+    public void levelOrderTraversal() {
+        levelOrderTraversal(root);
     }
 
-
     /**
-     * 后续遍历
+     * 层序遍历
      *
      * @param node
      */
-    public void postOrderTraversal(Node<E> node) {
-        if (node != null) {
-            if (node.leftChild != null) {
-                postOrderTraversal(node.leftChild);
+    public void levelOrderTraversal(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+        LinkedList<Node<E>> queue = new LinkedList<>();
+        queue.push(node);
+        while (!queue.isEmpty()) {
+            Node<E> pop = queue.poll();
+            if (pop != null) {
+                printNode(pop);
+                queue.add(pop.leftChild);
+                queue.add(pop.rightChild);
             }
-            if (node.rightChild != null) {
-                postOrderTraversal(node.rightChild);
-            }
-            printNode(node);
+
         }
     }
 

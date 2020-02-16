@@ -14,6 +14,8 @@ Namesrv可以理解为一个注册中心，类似于kafka的zookeeper，但是�
 <!--more-->
 
 ![image](/images/rocketmq-namesrv.png)
+
+---------------------
 ### Namesrv启动过程
 > 启动过程主要涉及NamesrvStartup和NamesrvController两个类。
 
@@ -22,6 +24,7 @@ start()方法会执行启动NettyServer。
 
 > 不仅Namesrv的启动过程是这样，其他的组件启动过程也是startup/config/controller这样一个流程。
 
+---------------------
 ### Namesrv主要组件
 -  **KVConfigManager**
 
@@ -112,6 +115,7 @@ switch (request.getCode()) {
         }
 ```
 
+---------------------
 ### 其他
 
    namesrv是无状态的，可以任意水平扩展，每一个broker都与所有namesrv保持长链接(有个scheduled task会按一定频率给所有namesrv做register broker的操作)，所以namesrv之间没有主从关系，他们之间也不需要复制数据。client(producer/consumer)会随机选择一个namesrv进行连接。  

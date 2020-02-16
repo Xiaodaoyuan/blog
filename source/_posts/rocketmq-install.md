@@ -10,6 +10,7 @@ tags: rocketmq
 1. 从github下载源码，git  clone  https://github.com/apache/rocketmq.git
 2. 编译源码，进入到主目录，然后执行命令： mvn -Prelease-all -DskipTests clean install -U
 3. 编译完之后我们只需要下图红框之内的目录进行部署。
+<!--more-->
 ![iamge](/images/rocketmq-install.png)
 4. 上图中bin目录是存放部署启动的脚本，conf目录存放的是配置文件，lib目录是打包好之后的所有jar包。
 

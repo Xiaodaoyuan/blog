@@ -15,7 +15,7 @@ timezone: Asia/Shanghai
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://yoursite.com
 root: /
-permalink: :category/:title/
+permalink: :category/:title.html
 permalink_defaults:
 
 # Directory
@@ -54,9 +54,18 @@ index_generator:
   order_by: -date
   
 # Category & Tag
-default_category: uncategorized
+default_category: default
 category_map:
+	数据结构和算法: data-struct
+	其他: other
+	分布式: distributed
 tag_map:
+	JVM虚拟机: jvm
+	并发: concurrent
+	java基础: java-base
+	正则: regular
+	算法: algorithms
+	集合: collection
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
