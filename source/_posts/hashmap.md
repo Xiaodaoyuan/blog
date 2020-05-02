@@ -343,7 +343,7 @@ Java8的ConcurrentHashMap底层结构和HashMap是一致的，不过由于要保
 
 ```
 
-####初始化table
+#### 初始化table
 
 ```java
 private final Node<K,V>[] initTable() {
