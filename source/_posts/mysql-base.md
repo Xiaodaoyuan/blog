@@ -6,7 +6,7 @@ categories: Mysql
 ---
 ### mysql逻辑架构
 
-![images](images/mysql-struct.png)
+![images](/images/mysql-struct.png)
 <!--more-->
 
 #### 连接器
@@ -42,7 +42,7 @@ mysql会缓存一些查询，下次查询如果命中就可以直接返回。但
 3. redolog是循环写的，写完了又会从头开始写。binlog是追加写，写完一个文件之后会重新开一个文件写入。
 
 
-![images](images/mysql-update.png)
+![images](/images/mysql-update.png)
 
 根据上图我们介绍下mysql innodb引擎更新过程：
 
